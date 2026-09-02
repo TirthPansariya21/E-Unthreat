@@ -1,0 +1,31 @@
+Return-Path: <bounce@mailer-node42.net>
+Received: from mx.recipient.example (mx.recipient.example [192.0.2.10])
+	by inbox.recipient.example with ESMTPS id 9f3a
+	for <alex@example.com>; Mon, 1 Sep 2026 06:14:02 +0000
+Received: from mail.paypa1-secure.com (unknown [45.9.148.22])
+	by mx.recipient.example with ESMTP id k11
+	for <alex@example.com>; Mon, 1 Sep 2026 06:13:58 +0000
+Authentication-Results: mx.recipient.example;
+	spf=fail smtp.mailfrom=paypa1-secure.com;
+	dkim=fail header.d=paypa1-secure.com;
+	dmarc=fail header.from=paypa1-secure.com
+From: "PayPal Security" <service@paypa1-secure.com>
+To: alex@example.com
+Subject: Your account will be locked in 12 hours
+Message-ID: <alert-9912@mailer-node42.net>
+Date: Mon, 1 Sep 2026 06:13:50 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Dear Customer,
+
+We detected unusual activity on your PayPal account. You must verify your
+account immediately or it will be locked within 12 hours.
+
+Confirm your identity and update your password here:
+https://bit.ly/pp-secure-login-9912
+
+Failure to act now will result in permanent suspension.
+
+Thank you,
+PayPal Security Team

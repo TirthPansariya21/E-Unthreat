@@ -1,0 +1,21 @@
+Return-Path: <notices@dhl-parcel-status.com>
+Received: from mx.example.net (mx.example.net [192.0.2.55])
+	by inbox.example.net with ESMTPS id dhl88
+	for <alex@example.com>; Mon, 1 Sep 2026 08:02:19 +0000
+Received: from mail.dhl-parcel-status.com (tor-exit.example.net [185.220.101.47])
+	by mx.example.net with ESMTP id dhl87
+	for <alex@example.com>; Mon, 1 Sep 2026 08:02:14 +0000
+From: "DHL Parcel" <notices@dhl-parcel-status.com>
+To: alex@example.com
+Subject: Outstanding customs fee on your parcel
+Date: Mon, 1 Sep 2026 08:02:01 +0000
+Message-ID: <invoice-4401@dhl-parcel-status.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Dear Customer,
+
+Your parcel is on hold because of an outstanding customs fee. Please
+confirm your details so we can release it.
+
+DHL Express

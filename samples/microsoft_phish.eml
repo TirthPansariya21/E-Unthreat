@@ -1,0 +1,30 @@
+Return-Path: <noreply@micros0ft-verify.com>
+Received: from mx.recipient.example (mx.recipient.example [192.0.2.10])
+	by inbox.recipient.example with ESMTPS id ms09
+	for <alex@example.com>; Mon, 1 Sep 2026 10:11:02 +0000
+Received: from mail.micros0ft-verify.com (unknown [20.42.65.80])
+	by mx.recipient.example with ESMTP id ms08
+	for <alex@example.com>; Mon, 1 Sep 2026 10:10:58 +0000
+Authentication-Results: mx.recipient.example;
+	spf=fail smtp.mailfrom=micros0ft-verify.com;
+	dkim=fail header.d=micros0ft-verify.com;
+	dmarc=fail header.from=micros0ft-verify.com
+From: "Microsoft Account" <security@micros0ft-verify.com>
+To: alex@example.com
+Subject: Unusual sign-in — verify your account immediately
+Message-ID: <lockout@mailer-node.biz>
+Date: Mon, 1 Sep 2026 10:10:50 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Dear Customer,
+
+We detected unusual activity on your Microsoft account. You must verify your
+account immediately or it will be locked.
+
+Reset your password and confirm your identity:
+https://bit.ly/ms-secure-login
+
+Failure to act now will close the mailbox.
+
+Microsoft Account Team

@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+data/*.db
+data/geo_cache.json
+.streamlit/secrets.toml
+.wheels/
+.DS_Store

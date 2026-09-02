@@ -1,0 +1,31 @@
+Return-Path: <noreply@github.com>
+Received: from mx.google.com (mx.google.com [142.250.4.26])
+	by inbox.example.com with ESMTPS id gh17
+	for <alex@example.com>; Mon, 1 Sep 2026 09:20:44 +0000
+Received: from out-17.smtp.github.com (out-17.smtp.github.com [192.30.252.41])
+	by mx.google.com with ESMTPS id gh16
+	for <alex@example.com>; Mon, 1 Sep 2026 09:20:40 +0000
+Authentication-Results: mx.google.com;
+	spf=pass smtp.mailfrom=github.com;
+	dkim=pass header.d=github.com;
+	dmarc=pass header.from=github.com
+From: GitHub <noreply@github.com>
+To: alex@example.com
+Subject: [GitHub] A new sign-in to your account
+Date: Mon, 1 Sep 2026 09:20:33 +0000
+Message-ID: <sign-in-notice@github.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Hello alex,
+
+We noticed a new sign-in to your GitHub account from Chrome on Windows.
+
+If this was you, no action is required. You can review your sessions at:
+https://github.com/settings/sessions
+
+If you do not recognize this activity, reset your credentials from the
+official GitHub settings page.
+
+Thanks,
+GitHub

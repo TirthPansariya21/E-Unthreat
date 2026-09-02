@@ -1,0 +1,25 @@
+Return-Path: <ops@company-mailer.net>
+Received: from mx.contoso.example (mx.contoso.example [192.0.2.40])
+	by inbox.contoso.example with ESMTPS id bec01
+	for <finance@contoso.com>; Mon, 1 Sep 2026 07:40:11 +0000
+Received: from smtp.company-mailer.net (unknown [102.89.33.14])
+	by mx.contoso.example with ESMTP id bec00
+	for <finance@contoso.com>; Mon, 1 Sep 2026 07:40:08 +0000
+From: "Robert Chen, CEO" <robert.chen@company-mailer.net>
+To: finance@contoso.com
+Subject: URGENT: process this wire before close of business
+Message-ID: <ceo-wire@randomhost.biz>
+Date: Mon, 1 Sep 2026 07:39:55 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+I am in a board meeting and need you to process this wire before close of
+business. Do not discuss on Slack.
+
+Please purchase $8,500 in gift cards and send the codes to this thread, or
+initiate the urgent payment to the account my assistant will forward.
+
+Act now. This is confidential.
+
+Robert Chen
+Chief Executive Officer

@@ -1,0 +1,28 @@
+Return-Path: <benefits@contoso.com>
+Received: from protection.outlook.com (protection.outlook.com [104.47.17.33])
+	by inbox.contoso.com with ESMTPS id hr44
+	for <alex@contoso.com>; Mon, 1 Sep 2026 09:40:12 +0000
+Received: from mail-ireland.contoso.com (mail-ireland.contoso.com [52.96.12.8])
+	by protection.outlook.com with ESMTPS id hr43
+	for <alex@contoso.com>; Mon, 1 Sep 2026 09:40:08 +0000
+Authentication-Results: protection.outlook.com;
+	spf=pass smtp.mailfrom=contoso.com;
+	dkim=pass header.d=contoso.com;
+	dmarc=pass header.from=contoso.com
+From: Contoso Benefits <benefits@contoso.com>
+To: alex@contoso.com
+Subject: Open enrolment reminder — no action required yet
+Message-ID: <benefits-2026@contoso.com>
+Date: Mon, 1 Sep 2026 09:40:01 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Hi Alex,
+
+Open enrolment begins next month. No action is required yet — we will send
+the official benefits portal link from this same address when it opens.
+
+Questions can wait until the all-hands on Friday.
+
+Thanks,
+People Operations
