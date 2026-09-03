@@ -353,33 +353,29 @@ def _flag_cards_html(flags: list[str]) -> str:
         tag = _tone_tag(tone)
         why = explain_flag(flag)
         cards.append(
-            f"""
-            <div class="flag-card {tone}">
-              <div class="flag-status-icon">{mark}</div>
-              <div class="flag-info">
-                <div class="flag-title-row">
-                  <span class="flag-name">{html.escape(flag)}</span>
-                  <span class="flag-tag">{tag}</span>
-                </div>
-                <div class="flag-explanation">{html.escape(why)}</div>
-              </div>
-            </div>
-            """
+            f'<div class="flag-card {tone}">'
+            f'<div class="flag-status-icon">{mark}</div>'
+            f'<div class="flag-info">'
+            f'<div class="flag-title-row">'
+            f'<span class="flag-name">{html.escape(flag)}</span>'
+            f'<span class="flag-tag">{tag}</span>'
+            f'</div>'
+            f'<div class="flag-explanation">{html.escape(why)}</div>'
+            f'</div>'
+            f'</div>'
         )
     if not cards:
         cards.append(
-            """
-            <div class="flag-card ok">
-              <div class="flag-status-icon">✓</div>
-              <div class="flag-info">
-                <div class="flag-title-row">
-                  <span class="flag-name">No anomalies detected</span>
-                  <span class="flag-tag">PASS</span>
-                </div>
-                <div class="flag-explanation">All inspection heuristics in this channel passed baseline security thresholds.</div>
-              </div>
-            </div>
-            """
+            '<div class="flag-card ok">'
+            '<div class="flag-status-icon">✓</div>'
+            '<div class="flag-info">'
+            '<div class="flag-title-row">'
+            '<span class="flag-name">No anomalies detected</span>'
+            '<span class="flag-tag">PASS</span>'
+            '</div>'
+            '<div class="flag-explanation">All inspection heuristics in this channel passed baseline security thresholds.</div>'
+            '</div>'
+            '</div>'
         )
     return "".join(cards)
 
@@ -414,15 +410,13 @@ def render_relay_path(hops: list[str]) -> None:
     for i, hop in enumerate(hops):
         role = _role_for_hop(i, total)
         parts.append(
-            f"""
-            <div class="timeline-node">
-              <div class="node-marker">{i + 1}</div>
-              <div class="node-card">
-                <div class="node-role">{role}</div>
-                <div class="node-host">{html.escape(str(hop))}</div>
-              </div>
-            </div>
-            """
+            f'<div class="timeline-node">'
+            f'<div class="node-marker">{i + 1}</div>'
+            f'<div class="node-card">'
+            f'<div class="node-role">{role}</div>'
+            f'<div class="node-host">{html.escape(str(hop))}</div>'
+            f'</div>'
+            f'</div>'
         )
     st.markdown(f'<div class="timeline-container">{"".join(parts)}</div>', unsafe_allow_html=True)
 
