@@ -158,47 +158,21 @@ def render_origin_map(case: dict) -> None:
     country = case.get("origin_country") or "Unknown"
     color = VERDICT_COLORS.get(case.get("verdict"), "#38bdf8")
 
-    try:
-        import folium
-        from streamlit_folium import st_folium
-
-        fmap = folium.Map(
-            location=[lat, lon],
-            zoom_start=4,
-            tiles="CartoDB positron",
-        )
-        folium.CircleMarker(
-            location=[lat, lon],
-            radius=14,
-            color=color,
-            fill=True,
-            fill_color=color,
-            fill_opacity=0.85,
-            popup=folium.Popup(
-                f"<b>{city}, {country}</b><br/>IP {case.get('origin_ip', '—')}",
-                max_width=260,
-            ),
-        ).add_to(fmap)
-        folium.Circle(
-            location=[lat, lon],
-            radius=180000,
-            color=color,
-            fill=True,
-            fill_opacity=0.08,
-            weight=1,
-        ).add_to(fmap)
-        st_folium(fmap, height=380, use_container_width=True, returned_objects=[])
-        return
-    except Exception:
-        pass
-
+    # Plotly Scattergeo only — no tile server, no API key, no network
+    # dependency at render time. Reliable for a live demo on any network.
     fig = go.Figure(
         go.Scattergeo(
             lon=[lon],
             lat=[lat],
             text=[f"{city}, {country}"],
+            hovertemplate=f"<b>{html.escape(city)}, {html.escape(country)}</b><br>IP {case.get('origin_ip', '—')}<extra></extra>",
             mode="markers",
-            marker=dict(size=14, color=color, line=dict(width=1, color="#1E2530")),
+            marker=dict(
+                size=16,
+                color=color,
+                line=dict(width=1.5, color="#FFFFFF"),
+                opacity=0.9,
+            ),
         )
     )
     fig.update_geos(
@@ -209,16 +183,20 @@ def render_origin_map(case: dict) -> None:
         oceancolor="#F7F8FA",
         showcountries=True,
         countrycolor="#D5DAE0",
-        bgcolor="#F7F8FA",
-        lataxis_showgrid=True,
-        lonaxis_showgrid=True,
+        coastlinecolor="#D5DAE0",
+        bgcolor="rgba(0,0,0,0)",
+        lataxis_showgrid=False,
+        lonaxis_showgrid=False,
+        center=dict(lat=lat, lon=lon),
+        projection_scale=3.2,
     )
     fig.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",
         margin=dict(l=0, r=0, t=0, b=0),
         height=380,
+        showlegend=False,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 
 def _flag_rows_html(flags: list[str]) -> str:
@@ -412,6 +390,34 @@ def _on_sample_change() -> None:
         st.session_state.raw_source = path.read_text(encoding="utf-8", errors="replace")
 
 
+def _render_landing_strip() -> None:
+    st.markdown(
+        """
+        <div class="landing-strip">
+          <div class="landing-col">
+            <div class="landing-title">Content</div>
+            <div class="landing-body">A TF-IDF classifier trained on 164k+ labeled emails,
+            plus rule-based checks for urgency language, obfuscated links, and lookalike
+            domains (e.g. paypa1-secure.com).</div>
+          </div>
+          <div class="landing-col">
+            <div class="landing-title">Header &amp; protocol</div>
+            <div class="landing-body">SPF, DKIM, and DMARC validated against the sending
+            domain's real DNS records, with the Received-header relay chain reconstructed
+            hop by hop to catch spoofed From/Return-Path pairs.</div>
+          </div>
+          <div class="landing-col">
+            <div class="landing-title">Origin &amp; domain</div>
+            <div class="landing-body">The earliest public IP in the relay chain is geolocated
+            and checked against known VPN/hosting ranges; the sending domain's WHOIS age is
+            checked for recent registration.</div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def render_upload() -> None:
     uploaded = None
     options = ["Demo sample", "Upload", "Paste"]
@@ -460,6 +466,7 @@ def render_upload() -> None:
 
     analyze = st.button("Analyze", type="primary")
     if not analyze:
+        _render_landing_strip()
         return
 
     filename = "pasted-source.eml"

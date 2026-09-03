@@ -391,6 +391,34 @@ p, li, .stMarkdown p {
 
 .history-hint { margin: 0 0 0.85rem 0; }
 
+/* Landing strip: three signal channels shown before first analysis */
+.landing-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 2.5rem;
+    margin: 2.75rem 0 0 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--hairline);
+}
+.landing-col { max-width: 24rem; }
+.landing-title {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+.landing-body {
+    font-family: Inter, sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--muted);
+}
+@media (max-width: 900px) {
+    .landing-strip { grid-template-columns: 1fr; gap: 1.75rem; }
+}
+
 hr { border-color: var(--hairline) !important; }
 </style>
 """
