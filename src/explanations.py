@@ -13,7 +13,18 @@ FLAG_EXPLANATIONS: dict[str, str] = {
     ),
     "Lookalike domain detected": (
         "The sender domain is a near-miss of a well-known brand (extra letters, "
-        "digit substitutions). This is a classic homograph / typosquat lure."
+        "digit substitutions, or brand-name + login/verify bait). This is a "
+        "classic homograph / typosquat lure."
+    ),
+    "Suspicious link to lookalike domain": (
+        "A URL in the body points at a lookalike of a trusted brand rather than "
+        "that organisation's real website. Recipients are being steered to a "
+        "credential-harvesting page."
+    ),
+    "Link domain does not match claimed sender": (
+        "The message claims to be from a known organisation, but an embedded "
+        "link goes to a different domain that is not one of that organisation's "
+        "official sites."
     ),
     "Credential harvesting language": (
         "The message asks the recipient to confirm a password, OTP, or banking "

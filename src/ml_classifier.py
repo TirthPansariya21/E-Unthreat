@@ -279,7 +279,7 @@ def predict_text(text: str) -> dict:
         return {"label": "Suspicious", "confidence": 50, "accuracy": None, "available": False}
     pipe = bundle["pipeline"]
     proba = pipe.predict_proba([text])[0]
-    classes = [str(c).lower() for c in pipe.classes_]
+    classes = list(pipe.classes_)
     phish_idx = classes.index("phishing") if "phishing" in classes else 0
     p_phish = float(proba[phish_idx])
     if p_phish >= 0.70:

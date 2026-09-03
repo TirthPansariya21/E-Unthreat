@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from src.content_signals import extra_content_flags, lookalike_hit
 from src.email_parser import parse_email
 from src.explanations import explain_flag
 from src.header_forensics import analyze_headers
@@ -40,6 +41,9 @@ def analyze_email(raw_eml: str) -> dict:
     warnings.extend(headers.get("warnings") or [])
 
     content_flags = [f for f in nlp["content_flags"] if f]
+    for flag in extra_content_flags(parsed):
+        if flag not in content_flags:
+            content_flags.append(flag)
     header_flags = headers["header_flags"]
     origin_flags = origin["origin_flags"]
 
@@ -49,7 +53,13 @@ def analyze_email(raw_eml: str) -> dict:
     risk_origin = [f for f in origin_flags if not f.startswith("No origin")]
 
     p_phish = float(nlp.get("ml_p_phishing") or 0)
-    ml_term = int(round(40 * p_phish)) if nlp.get("ml_available") else 0
+    # ML is weighted above per-keyword flags (55 vs 40) so a confident model
+    # call still moves the needle when the rule list has never seen this brand
+    # or phrasing. Empty-rule floor: P>=0.60 can reach the Suspicious band
+    # by itself instead of collapsing to ~20 points.
+    ml_term = int(round(55 * p_phish)) if nlp.get("ml_available") else 0
+    if nlp.get("ml_available") and p_phish >= 0.60 and len(risk_content) == 0 and not auth_pass:
+        ml_term = max(ml_term, int(round(48 + 30 * (p_phish - 0.60))))
     rule_term = min(40, 8 * len(risk_content))
     header_term = 10 * auth_fails + 3 * sum(1 for f in header_flags if f.startswith("Return-Path") or f.startswith("Missing") or f.startswith("Message-ID"))
     origin_term = min(30, 7 * len(risk_origin))
@@ -61,13 +71,26 @@ def analyze_email(raw_eml: str) -> dict:
             "Lookalike domain detected",
             "Request for payment / gift cards",
             "Brand impersonation in display name",
+            "Suspicious link to lookalike domain",
         )
-    ) or lookalike_brand(parsed.domain)
+    ) or lookalike_brand(parsed.domain) or lookalike_hit(parsed.domain)
+    # Three independent axes: auth failure, risky content, hostile origin.
+    # Any one or two of these can still land Suspicious; all three together is phishing.
+    stacked = (
+        auth_fails >= 2
+        and len(risk_content) >= 2
+        and any(
+            f.startswith("IP flagged as VPN") or f.startswith("TOR")
+            for f in origin_flags
+        )
+    )
     if severe:
         score = max(score, 74)
-    if auth_pass and not severe and len(risk_content) <= 1:
+    if stacked:
+        score = max(score, 74)
+    if auth_pass and not severe and not stacked and len(risk_content) <= 1:
         score = min(max(score, 8), 22)
-    if not severe and not auth_pass and 2 <= len(risk_content) <= 3:
+    if not severe and not stacked and not auth_pass and 2 <= len(risk_content) <= 3:
         score = min(max(score, 42), 68)
 
     score = max(4, min(98, int(score)))
